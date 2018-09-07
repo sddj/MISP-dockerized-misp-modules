@@ -1,8 +1,10 @@
 # Supported tags and respective `Dockerfile` links
 
-- [`1.0.0-debian`, `latest`][1]
+- [`1.0.1-debian`, `latest`][2]
+- [`1.0.0-debian`][1]
 
 [1]: https://github.com/DCSO/MISP-dockerized-misp-modules/blob/master/1.0.0-debian/Dockerfile
+[2]: https://github.com/DCSO/MISP-dockerized-misp-modules/blob/master/1.0.1-debian/Dockerfile
 
 # Quick reference
 
@@ -32,10 +34,10 @@
 
 [101]: https://travis-ci.org/DCSO/MISP-dockerized-misp-modules.svg?branch=master
 [102]: https://travis-ci.org/DCSO/MISP-dockerized-misp-modules
-[104]: https://images.microbadger.com/badges/image/dcso/MISP-dockerized-misp-modules.svg
-[105]: https://images.microbadger.com/badges/version/dcso/MISP-dockerized-misp-modules.svg
-[106]: https://images.microbadger.com/badges/commit/dcso/MISP-dockerized-misp-modules.svg
-[107]: https://microbadger.com/images/dcso/MISP-dockerized-misp-modules
+[104]: https://images.microbadger.com/badges/image/dcso/misp-dockerized-misp-modules.svg
+[105]: https://images.microbadger.com/badges/version/dcso/misp-dockerized-misp-modules.svg
+[106]: https://images.microbadger.com/badges/commit/dcso/misp-dockerized-misp-modules.svg
+[107]: https://microbadger.com/images/dcso/misp-dockerized-misp-modules
 
 
 

@@ -32,6 +32,12 @@ build_1.0.0-debian:
   - make tags
   - make push
 
+build_1.0.1-debian:
+  stage: build
+  script:
+  - make build v=1.0.1-debian
+  - make tags
+  - make push
 
 .upload_image_internal_registry:
   stage: deploy

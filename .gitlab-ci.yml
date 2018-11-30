@@ -36,6 +36,7 @@ include:
   - '.legacy/.gitlab-ci.yml'
   - '1.0-debian/.gitlab-ci.yml'
   - '1.1-debian/.gitlab-ci.yml'
+  - '1.2-debian/.gitlab-ci.yml'
 
 # after_success:
 # # notify Docker Hub to make a new build

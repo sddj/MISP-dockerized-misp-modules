@@ -1,0 +1,14 @@
+build 1.3-debian:
+  extends: .build
+  variables:
+    VERSION: "1.3-debian"
+
+
+test 1.3-debian:
+  extends: .test
+  variables:
+    VERSION: "1.3-debian"
+  only:
+    changes:
+    - 1.3-debian/*
+    

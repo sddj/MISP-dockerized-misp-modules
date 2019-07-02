@@ -1,9 +1,0 @@
-build_debian_1.0.1:
-  extends: .build
-  variables:
-   VERSION: "1.0.1-debian"
-
-build_debian_1.0.0:
-  extends: .build
-  variables:
-   VERSION: "1.0.0-debian"

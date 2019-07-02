@@ -2,12 +2,12 @@
 set -e
 
 function check_and_link_error(){
-    [ -e $1 ] && rm $1;
-    ln -s /dev/stderr $1
+    [ -e "$1" ] && rm "$1";
+    ln -s /dev/stderr "$1"
 }
 function check_and_link_out(){
-    [ -e $1 ] && rm $1;
-    ln -s /dev/stdout $1
+    [ -e "$1" ] && rm "$1";
+    ln -s /dev/stdout "$1"
 }
 # For Logfiles
 

@@ -1,0 +1,17 @@
+test-3.0-python:
+  extends: .test
+  variables:
+    FOLDER: 3.0-python
+    VERSION: "$FOLDER"
+  only:
+    changes:
+    - 3.0-python/*
+
+build-3.0-python:
+  extends: .build
+  variables:
+    FOLDER: 3.0-python
+    VERSION: "$FOLDER"
+    TAGS: "${FOLDER}-dev latest-dev 3-dev"
+    #DEBUG: "true"
+    RELEASE_DATE: 2019-06

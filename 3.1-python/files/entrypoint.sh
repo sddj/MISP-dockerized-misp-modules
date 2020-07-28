@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
 
 # Variables
@@ -24,6 +24,20 @@ MISP_MODULES_DEBUG=${MISP_MODULES_DEBUG:-"false"}
 
 # Check if debugging mode should be enabled
 [ "$MISP_MODULES_DEBUG" = "true" ] && DEBUG="-d"
+
+ping_redis(){
+    (exec 9<>"/dev/tcp/$1/$2" && command echo -e "PING\r" >&9 && head -n 1 <&9 | tr -d '\015')
+}
+
+check_redis(){
+    # Test when Redis is ready
+    while ! [ "$(ping_redis ${REDIS_BACKEND} ${REDIS_PORT})" = "+PONG" ]; do
+        echo "Wait for Redis..."
+        sleep 2
+    done
+}
+
+echo "Check if Redis is ready..." && check_redis
 
 # check if a command parameter exists and start misp-modules
 if [ $# = 0 ]

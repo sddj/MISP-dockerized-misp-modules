@@ -2,12 +2,18 @@ FROM python:3.7-slim-stretch
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
+                ca-certificates \
                 git \
                 gem \
                 curl \
                 gosu \
         && apt-get -y autoremove \
         && apt-get -y clean
+
+# Install additional SSL certificates
+RUN mkdir -p /usr/local/share/ca-certificates/extra
+COPY ca-certs/* /usr/local/share/ca-certificates/extra/
+RUN /usr/sbin/update-ca-certificates
 
 #########################################
 #       Start of MISP modules Config Part
@@ -46,6 +52,7 @@ RUN set -e\
         ;cd ${WORKDIR} \
         ;$SUDO_WWW ${WORKDIR}/venv/bin/pip3 install -I -r REQUIREMENTS --no-cache-dir \
         ;$SUDO_WWW ${WORKDIR}/venv/bin/pip3 install . --no-cache-dir \
+        ;$SUDO_WWW ${WORKDIR}/venv/bin/pip3 install git+https://github.com/abenassi/Google-Search-API --no-cache-dir \
         #;gem install asciidoctor-pdf --pre \
         ;chown -R www-data ${WORKDIR}
 

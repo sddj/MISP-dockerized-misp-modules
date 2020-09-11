@@ -1,5 +1,5 @@
-VERSION=2.4.117
-SRC_TAGGED_IMAGE=dcso/misp-dockerized-misp-modules:latest
+VERSION=2.4.121
+SRC_TAGGED_IMAGE=dcso/misp-dockerized-misp-modules:${VERSION}
 DST_IMAGE=misp-modules
 
 .PHONY: build push
@@ -22,7 +22,7 @@ push: misp-modules.push
 %.push:
 	if [ -f $$HOME/r/opt/aws/bin/activate ]; then . $$HOME/r/opt/aws/bin/activate; fi\
 	&& $$(aws ecr get-login --no-include-email)\
-	&& DST_TAGGED_IMAGE=$$(bin/image-repo-tag dcso/misp-dockerized-$*:latest $*)\
+	&& DST_TAGGED_IMAGE=$$(bin/image-repo-tag ${SRC_TAGGED_IMAGE} $*)\
 	&& docker tag ${SRC_TAGGED_IMAGE} $$DST_TAGGED_IMAGE\
 	&& docker push $$DST_TAGGED_IMAGE\
 	&& echo $$DST_TAGGED_IMAGE

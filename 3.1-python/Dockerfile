@@ -47,14 +47,14 @@ RUN set -e\
         ;mkdir -p /usr/local/src \
         ;chown www-data -R /usr/local/src \
         ;$SUDO_WWW git clone https://github.com/MISP/misp-modules.git ${WORKDIR} \
-        #;[ -n "${VERSION-}" ] && $SUDO_WWW git checkout tags/v${VERSION} \
-        ;$SUDO_WWW virtualenv -p python3 ${WORKDIR}/venv \
         ;cd ${WORKDIR} \
-        ;$SUDO_WWW ${WORKDIR}/venv/bin/pip3 install -I -r REQUIREMENTS --no-cache-dir \
-        ;$SUDO_WWW ${WORKDIR}/venv/bin/pip3 install . --no-cache-dir \
-        ;$SUDO_WWW ${WORKDIR}/venv/bin/pip3 install git+https://github.com/abenassi/Google-Search-API --no-cache-dir \
+        ;[ -n "${VERSION-}" ] && $SUDO_WWW git checkout tags/v${VERSION} \
+        ;$SUDO_WWW virtualenv -p python3 ./venv \
+        ;$SUDO_WWW ./venv/bin/pip3 install -I -r REQUIREMENTS --no-cache-dir \
+        ;$SUDO_WWW ./venv/bin/pip3 install . --no-cache-dir \
+        ;$SUDO_WWW ./venv/bin/pip3 install git+https://github.com/abenassi/Google-Search-API --no-cache-dir \
         #;gem install asciidoctor-pdf --pre \
-        ;chown -R www-data ${WORKDIR}
+        ;chown -R www-data .
 
 #       End of MISP modules config part
 #########################################

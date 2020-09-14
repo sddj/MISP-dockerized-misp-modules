@@ -1,29 +1,13 @@
 #!/bin/sh
-repo=$(aws ecr describe-repositories | jq -r '.repositories[] | select(.repositoryUri | endswith("'"$2"'")) | .repositoryUri')
+repo=$(aws ecr describe-repositories | jq -r '.repositories[] | select(.repositoryUri | endswith("'"$1"'")) | .repositoryUri')
 if [ -z "${repo}" ]; then
-    echo 1>&2 "Unable to find repo for $2"
+    echo 1>&2 "Unable to find repo for $1"
     exit 1
 fi
 now=$(date +%Y%m%d)
-IRT_FILE="/tmp/image-repo-tag.$$"
-aws ecr list-images --repository-name "$2" | jq -Mc '.imageIds[]' >"${IRT_FILE}"
-
-ctag=$(docker image inspect "$1" | jq -M '.[].RepoDigests[] | select(startswith("'"${repo}"'")) | sub(".*?@"; "")')
-
-if [ -n "${ctag}" ] && grep "${ctag}" "${IRT_FILE}" >/dev/null; then
-    for i in $(grep "${ctag}" "${IRT_FILE}" | jq -Mr .imageTag); do
-        echo 1>&2 "${repo}:$i exists with match sha256"
-    done
-    rc=1
+last=$(aws ecr list-images --repository-name "$1" | jq -Mr '.imageIds[].imageTag' | grep "^$now" | sort -t . -k 2n | tail -n 1)
+if [ -z "$last" ]; then
+  echo "${repo}:${now}.1"
 else
-    last=$(jq -Mr '.imageTag' "${IRT_FILE}" | grep "^$now" | sort -t . -k 2n | tail -n 1)
-    if [ -z "$last" ]; then
-      echo "${repo}:${now}.1"
-    else
-      echo "${repo}:${now}.$((${last#*.} + 1))"
-    fi
-    rc=0
+  echo "${repo}:${now}.$((${last#*.} + 1))"
 fi
-
-rm -f ${IRT_FILE}
-exit $rc

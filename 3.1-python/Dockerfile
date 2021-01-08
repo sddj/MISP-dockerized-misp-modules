@@ -1,4 +1,4 @@
-FROM python:3.7-slim-stretch
+FROM python:3.7-slim-buster
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
@@ -23,10 +23,9 @@ RUN apt-get update && apt-get install -y \
                 python3-pip \
                 libpq5 \
                 libjpeg-dev \
-                tesseract-ocr \ 
+                tesseract-ocr \
                 libpoppler-cpp-dev \
                 imagemagick \
-                virtualenv \
                 libopencv-dev \
                 zbar-tools \
                 libzbar0 \
@@ -34,6 +33,8 @@ RUN apt-get update && apt-get install -y \
                 libfuzzy-dev \
         && apt-get -y autoremove \
         && apt-get -y clean
+# 
+RUN pip3 install virtualenv
 
 # Add MISP-modules + dependencies
 ENV WORKDIR="/usr/local/src/misp-modules"
